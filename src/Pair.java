@@ -16,4 +16,9 @@ public class Pair<T, S> {
     public S getSecond() {
         return second;
     }
+
+    @Override
+    public String toString() {
+        return "\n(" + first + ", " + second + ")\n";
+    }
 }

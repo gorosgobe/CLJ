@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Header<T> {
+public class Header<T extends Comparable<T>> {
 
     private final List<Attribute<T>> attributes;
 
@@ -35,12 +35,54 @@ public class Header<T> {
         attributes.add(attribute);
     }
 
+    public void removeAttribute(int index) {
+        if (index < 0 || index >= attributes.size()) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        attributes.remove(index);
+    }
+
+    public void removeAttributeWithValue(T value) {
+
+        for (Attribute<T> att : attributes) {
+            if (att.hasValue(value)) {
+                attributes.remove(att);
+                return;
+            }
+        }
+    }
+
     public List<T> getAttributeValues(int index) {
         if (index < 0 || index >= attributes.size()) {
             throw new ArrayIndexOutOfBoundsException();
         }
 
         return attributes.get(index).getAttributeValues();
+    }
+
+    public int getIndexOfAttributeWithValue(T value) {
+
+        for (int i = 0; i < attributes.size(); i++) {
+            if (attributes.get(i).hasValue(value)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Header<?> header = (Header<?>) o;
+
+        return attributes.equals(header.attributes);
+    }
+
+    @Override
+    public int hashCode() {
+        return attributes.hashCode();
     }
 
     @Override

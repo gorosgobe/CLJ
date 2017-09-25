@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Table<T> {
+public class Table<T extends Comparable<T>> {
 
     private final List<Row<T>> table;
 
@@ -35,6 +35,21 @@ public class Table<T> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Table<?> table1 = (Table<?>) o;
+
+        return table.equals(table1.table);
+    }
+
+    @Override
+    public int hashCode() {
+        return table.hashCode();
+    }
+
+    @Override
     public String toString() {
         int count = 0;
         StringBuilder sb = new StringBuilder();
@@ -52,4 +67,5 @@ public class Table<T> {
 
         return sb.toString();
     }
+
 }
