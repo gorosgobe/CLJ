@@ -33,5 +33,7 @@ public class Tests {
 
         Dataset<String> dataset = new Dataset<>(header, table);
 
+        System.out.println(dataset);
+
     }
 }

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Header<T> {
 
@@ -40,5 +41,12 @@ public class Header<T> {
         }
 
         return attributes.get(index).getAttributeValues();
+    }
+
+    @Override
+    public String toString() {
+        return attributes.stream()
+                .map(Attribute::getAttributeName)
+                .collect(Collectors.toList()).toString();
     }
 }

@@ -32,4 +32,9 @@ public class Row<T> {
     public void addValue(T value) {
         values.add(value);
     }
+
+    @Override
+    public String toString() {
+        return values.toString();
+    }
 }

@@ -26,4 +26,8 @@ public class Dataset<T> {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Header: " + header + "\n" + "Table: \n" + table;
+    }
 }

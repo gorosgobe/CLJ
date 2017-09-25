@@ -33,4 +33,23 @@ public class Table<T> {
     public void addRow(Row<T> row) {
         table.add(row);
     }
+
+    @Override
+    public String toString() {
+        int count = 0;
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (Row<T> row : table) {
+            count++;
+            if (count == table.size()) {
+                sb.append(row);
+            } else {
+                sb.append(row);
+                sb.append(",\n");
+            }
+        }
+        sb.append(']');
+
+        return sb.toString();
+    }
 }

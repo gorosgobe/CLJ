@@ -25,4 +25,8 @@ public class Attribute<T> {
         return attributeValues;
     }
 
+    @Override
+    public String toString() {
+        return "(" + attributeName + ", " + attributeValues + ")";
+    }
 }
