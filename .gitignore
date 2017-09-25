@@ -1,3 +1,3 @@
-out
-decision-trees.iml
-.idea
+out/
+.idea/
+/decision-trees.iml
