@@ -99,7 +99,20 @@ public class Tests {
 
         Table<String> t3 = new Table<>(r31, r32, r33, r34, r35);
         Assert.assertTrue(d3.getTable().equals(t3));
+    }
 
+    @Test
+    public void decisionTreeTest() {
+        DecisionTree<String> tree = new DecisionTree<>(dataset, result, new NextAtt<>());
+
+        String s = "Node outlook\n [(sunny, Node temp\n [(hot, Leaf \"bad\"), (mild, Node " +
+                "humidity\n [(high, Leaf \"bad\"), (normal, Leaf \"good\")]), (cool, Leaf \"good\")]), " +
+                "(overcast, Leaf \"good\"), (rainy, Node temp\n [(hot, null), (mild, Node " +
+                "humidity\n [(high, Node wind\n [(windy, Leaf \"bad\"), (calm, Leaf \"good\")]), " +
+                "(normal, Leaf \"good\")]), (cool, Node humidity\n [(high, null), (normal, Node " +
+                "wind\n [(windy, Leaf \"bad\"), (calm, Leaf \"good\")])])])]";
+        
+        Assert.assertEquals(tree.toString(), s);
 
     }
 }

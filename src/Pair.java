@@ -19,6 +19,6 @@ public class Pair<T, S> {
 
     @Override
     public String toString() {
-        return "\n(" + first + ", " + second + ")\n";
+        return "(" + first + ", " + second + ")";
     }
 }

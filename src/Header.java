@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,6 +59,15 @@ public class Header<T extends Comparable<T>> {
         }
 
         return attributes.get(index).getAttributeValues();
+    }
+
+    public int getIndexOfAttribute(Attribute<T> attribute) {
+        for (int i = 0; i < attributes.size(); i++) {
+            if (attribute.compareTo(attributes.get(i)) == 0) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public int getIndexOfAttributeWithValue(T value) {

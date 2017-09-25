@@ -19,7 +19,7 @@ public class Table<T extends Comparable<T>> {
         this.table = Arrays.asList(rows);
     }
 
-    public List<Row<T>> getTable() {
+    public List<Row<T>> getRows() {
         return table;
     }
 

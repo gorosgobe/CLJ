@@ -11,8 +11,10 @@ public class Dataset<T extends Comparable<T>> {
         this.header = header;
         this.table = table;
 
-        if (header.getAttributes().size() != table.getRow(0).getValues().size()) {
-            throw new IllegalArgumentException("Header and row size must be equal");
+        if (!isEmpty()) {
+            if (header.getAttributes().size() != table.getRow(0).getValues().size()) {
+                throw new IllegalArgumentException("Header and row size must be equal");
+            }
         }
     }
 
@@ -39,12 +41,11 @@ public class Dataset<T extends Comparable<T>> {
 
         int index = header.getIndexOfAttributeWithValue(value);
 
-        //table with the rows removed that have at index "index" the argument "value"
-        Table<T> t = new Table<>(table.getTable().stream()
+        //table with the rows that have at index "index" the argument "value"
+        Table<T> t = new Table<>(table.getRows().stream()
                 .filter(i -> i.getValue(index).compareTo(value) == 0)
                 .map(i -> i.getRowWithoutIndex(index))
                 .collect(Collectors.toList()));
-
 
         Attribute<T> attToRemove = header.getAttributes().get(index);
 
@@ -56,8 +57,14 @@ public class Dataset<T extends Comparable<T>> {
         return new Pair<>(value, new Dataset<>(h, t));
     }
 
+
+    public boolean isEmpty() {
+        return table.getRows().isEmpty();
+    }
+
     @Override
     public String toString() {
         return "Header: " + header + "\n" + "Table: \n" + table;
     }
+
 }
