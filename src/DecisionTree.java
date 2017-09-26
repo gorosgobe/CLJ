@@ -11,16 +11,14 @@ public class DecisionTree<T extends Comparable<T>> {
 
 
     public DecisionTree(Dataset<T> dataset, Attribute<T> resultAttribute, AttributeSelector<T> selector) {
-        //this.dataset = dataset;
-        //this.resultAttribute = resultAttribute;
-        //this.selector = selector;
         this.root = buildTree(dataset, resultAttribute, selector);
     }
-/*
-    private Node<T> buildTree(Dataset<T> dataset, Attribute<T> resultAttribute, AttributeSelector<T> selector) {
-        return buildTree(root, dataset, resultAttribute, selector);
+
+    public DecisionTree(Dataset<T> dataset, Attribute<T> resultAttribute, AttributeSelector<T> selector,
+                        Algorithm<T> algorithm) {
+        this.root = algorithm.buildTree(dataset, resultAttribute, selector);
     }
-*/
+
     private Node<T> buildTree(Dataset<T> dataset, Attribute<T> resultAttribute,
                                       AttributeSelector<T> selector) {
         //base case
@@ -71,59 +69,7 @@ public class DecisionTree<T extends Comparable<T>> {
         return values.stream().allMatch(i -> i.compareTo(values.get(0)) == 0);
     }
 
-    private class Node<T extends Comparable<T>> {
 
-        private String attributeName;
-        private List<Pair<T, Node<T>>> list;
-        private T value;
-
-        public Node(String attributeName, List<Pair<T, Node<T>>> list, T value) {
-            this.attributeName = attributeName;
-            this.list = list;
-            this.value = value;
-        }
-
-        public Node() {
-        }
-
-        public String getAttributeName() {
-            return attributeName;
-        }
-
-        public void setAttributeName(String attributeName) {
-            this.attributeName = attributeName;
-        }
-
-        public List<Pair<T, Node<T>>> getList() {
-            return list;
-        }
-
-        public void setList(List<Pair<T, Node<T>>> list) {
-            this.list = list;
-        }
-
-        public T getValue() {
-            return value;
-        }
-
-        public void setValue(T value) {
-            this.value = value;
-        }
-
-        private boolean isLeaf() {
-            return value != null && list == null && attributeName == null;
-        }
-
-        @Override
-        public String toString() {
-            if (isLeaf()) {
-                return "Leaf \"" + value + "\"";
-            } else {
-                return "Node " + attributeName + "\n " + list;
-            }
-
-        }
-    }
 
 
 }
