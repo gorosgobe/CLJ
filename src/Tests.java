@@ -103,7 +103,7 @@ public class Tests {
 
     @Test
     public void decisionTreeTest() {
-        DecisionTree<String> tree = new DecisionTree<>(dataset, result, new NextAtt<>());
+        DecisionTree<String> tree = new DecisionTree<>(dataset, result, new NextAttributeSelector<>());
 
         String s = "Node outlook\n [(sunny, Node temp\n [(hot, Leaf \"bad\"), (mild, Node " +
                 "humidity\n [(high, Leaf \"bad\"), (normal, Leaf \"good\")]), (cool, Leaf \"good\")]), " +
@@ -111,8 +111,18 @@ public class Tests {
                 "humidity\n [(high, Node wind\n [(windy, Leaf \"bad\"), (calm, Leaf \"good\")]), " +
                 "(normal, Leaf \"good\")]), (cool, Node humidity\n [(high, null), (normal, Node " +
                 "wind\n [(windy, Leaf \"bad\"), (calm, Leaf \"good\")])])])]";
-        
+
         Assert.assertEquals(tree.toString(), s);
 
+    }
+
+    @Test
+    public void entropyTest() {
+        Assert.assertEquals(0.940, InformationGainSelector.entropy(dataset, result), 0.001);
+    }
+
+    @Test
+    public void gainTest() {
+        Assert.assertEquals(0.246, InformationGainSelector.gain(dataset, outlook, result), 0.001);
     }
 }
