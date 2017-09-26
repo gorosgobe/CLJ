@@ -125,4 +125,18 @@ public class Tests {
     public void gainTest() {
         Assert.assertEquals(0.246, InformationGainSelector.gain(dataset, outlook, result), 0.001);
     }
+
+    @Test
+    public void gainSelectorTest() {
+        InformationGainSelector<String> gainSelector = new InformationGainSelector<>();
+        Attribute<String> att = gainSelector.nextAttribute(dataset, result);
+        Assert.assertEquals(outlook, att);
+
+        String s = "Node outlook\n " +
+                "[(sunny, Node humidity\n " +
+                "[(high, Leaf \"bad\"), (normal, Leaf \"good\")]), (overcast, Leaf \"good\"), (rainy, Node wind\n " +
+                "[(windy, Leaf \"bad\"), (calm, Leaf \"good\")])]";
+        DecisionTree<String> tree = new DecisionTree<>(dataset, result, new InformationGainSelector<>());
+        Assert.assertEquals(s, tree.toString());
+    }
 }

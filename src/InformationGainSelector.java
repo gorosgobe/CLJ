@@ -1,11 +1,32 @@
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InformationGainSelector<T extends Comparable<T>> implements AttributeSelector<T> {
 
     @Override
     public Attribute<T> nextAttribute(Dataset<T> dataset, Attribute<T> attribute) {
-        
-        return null;
+
+        List<Attribute<T>> attributes = dataset.getHeader().getAttributes();
+        List<Pair<Double, Attribute<T>>> gainToAtt = new ArrayList<>();
+
+        for (int i = 0; i < attributes.size(); i++) {
+            if (attributes.get(i).compareTo(attribute) == 0) {
+                //attribute is classification attribute, we ignore
+                continue;
+            }
+            double g = gain(dataset, attribute, attributes.get(i));
+            gainToAtt.add(new Pair<>(g, attributes.get(i)));
+        }
+
+        double maxGain = gainToAtt.stream()
+                .map(i -> i.getFirst())
+                .reduce(Double::max).orElse(0.0);
+
+        return gainToAtt.stream()
+                .filter(i -> i.getFirst().compareTo(maxGain) == 0)
+                .collect(Collectors.toList()).get(0).getSecond();
+
     }
 
     public static <T extends Comparable<T>> double gain(Dataset<T> dataset, Attribute<T> classificationAtt,
