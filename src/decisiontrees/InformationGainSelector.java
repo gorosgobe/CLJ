@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Represents an attribute selector that maximises information gain
+ * @param <T> the type the attributes hold. Must implement comparable
+ *
+ * @author gorosgobe
+ */
 public class InformationGainSelector<T extends Comparable<T>> implements AttributeSelector<T> {
 
     @Override

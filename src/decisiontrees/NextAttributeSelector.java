@@ -2,6 +2,13 @@ package decisiontrees;
 
 import java.util.stream.Collectors;
 
+/**
+ * Represents a dummy next attribute selector. Selects the next available attribute in order that is not the
+ * classifying attribute.
+ * @param <T> the type of the values held by the attributes. Must implement comparable
+ *
+ * @author gorosgobe
+ */
 public class NextAttributeSelector<T extends Comparable<T>> implements AttributeSelector<T> {
 
     @Override
