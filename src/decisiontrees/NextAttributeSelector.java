@@ -6,7 +6,7 @@ public class NextAttributeSelector<T extends Comparable<T>> implements Attribute
 
     @Override
     public Attribute<T> nextAttribute(Dataset<T> dataset, Attribute<T> attribute) {
-        return dataset.getHeader().getAttributes().stream()
+        return dataset.getHeader().getAttributes().parallelStream()
                 .filter(i -> !i.getAttributeName().equals(attribute.getAttributeName()))
                 .collect(Collectors.toList()).get(0);
     }

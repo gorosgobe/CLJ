@@ -21,11 +21,11 @@ public class InformationGainSelector<T extends Comparable<T>> implements Attribu
             gainToAtt.add(new Pair<>(g, attributes.get(i)));
         }
 
-        double maxGain = gainToAtt.stream()
+        double maxGain = gainToAtt.parallelStream()
                 .map(i -> i.getFirst())
                 .reduce(Double::max).orElse(0.0);
 
-        return gainToAtt.stream()
+        return gainToAtt.parallelStream()
                 .filter(i -> i.getFirst().compareTo(maxGain) == 0)
                 .collect(Collectors.toList()).get(0).getSecond();
 

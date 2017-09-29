@@ -47,7 +47,7 @@ public class Cluster {
 
         DataPoint identity = new DataPoint(identityComponents);
 
-        DataPoint p = dataPoints.stream().reduce(identity, DataPoint::add);
+        DataPoint p = dataPoints.parallelStream().reduce(identity, DataPoint::add);
         DataPoint newCentroid = p.divideComponentsBy(dataPoints.size());
         setCentroid(newCentroid);
     }

@@ -98,7 +98,7 @@ public class Header<T extends Comparable<T>> {
 
     @Override
     public String toString() {
-        return attributes.stream()
+        return attributes.parallelStream()
                 .map(Attribute::getAttributeName)
                 .collect(Collectors.toList()).toString();
     }

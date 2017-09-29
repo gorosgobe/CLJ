@@ -29,7 +29,7 @@ public class DecisionTree<T extends Comparable<T>> {
         Header<T> h = dataset.getHeader();
         int index = h.getIndexOfAttribute(resultAttribute);
 
-        if (allRowsHaveSameValue(dataset, resultAttribute, index)) {
+        if (allRowsHaveSameValue(dataset, index)) {
             //all values of the classification attribute are the same, return Leaf
             return new DecisionNode<>(null, null, dataset.getTable().getRow(0).getValue(index));
         }
@@ -57,15 +57,15 @@ public class DecisionTree<T extends Comparable<T>> {
     }
 
     private static <T extends Comparable<T>> boolean allRowsHaveSameValue(
-            Dataset<T> dataset, Attribute<T> resultAttribute, int index) {
+            Dataset<T> dataset, int index) {
 
-        return allSame(dataset.getTable().getRows().stream()
+        return allSame(dataset.getTable().getRows().parallelStream()
                 .map(i -> i.getValue(index))
                 .collect(Collectors.toList()));
     }
 
     private static <T extends Comparable<T>> boolean allSame(List<T> values) {
-        return values.stream().allMatch(i -> i.compareTo(values.get(0)) == 0);
+        return values.parallelStream().allMatch(i -> i.compareTo(values.get(0)) == 0);
     }
 
 

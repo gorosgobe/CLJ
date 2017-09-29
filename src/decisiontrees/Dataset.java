@@ -44,7 +44,7 @@ public class Dataset<T extends Comparable<T>> {
         int index = header.getIndexOfAttributeWithValue(value);
 
         //table with the rows that have at index "index" the argument "value"
-        Table<T> t = new Table<>(table.getRows().stream()
+        Table<T> t = new Table<>(table.getRows().parallelStream()
                 .filter(i -> i.getValue(index).compareTo(value) == 0)
                 .map(i -> i.getRowWithoutIndex(index))
                 .collect(Collectors.toList()));
@@ -52,7 +52,7 @@ public class Dataset<T extends Comparable<T>> {
         Attribute<T> attToRemove = header.getAttributes().get(index);
 
         //header with the attribute that has the value removed
-        Header<T> h = new Header<>(header.getAttributes().stream()
+        Header<T> h = new Header<>(header.getAttributes().parallelStream()
                 .filter(i -> i.compareTo(attToRemove) != 0)
                 .collect(Collectors.toList()));
 
