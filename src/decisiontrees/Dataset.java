@@ -1,3 +1,5 @@
+package decisiontrees;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +15,7 @@ public class Dataset<T extends Comparable<T>> {
 
         if (!isEmpty()) {
             if (header.getAttributes().size() != table.getRow(0).getValues().size()) {
-                throw new IllegalArgumentException("Header and row size must be equal");
+                throw new IllegalArgumentException("decisiontrees.Header and row size must be equal");
             }
         }
     }
@@ -64,7 +66,7 @@ public class Dataset<T extends Comparable<T>> {
 
     @Override
     public String toString() {
-        return "Header: " + header + "\n" + "Table: \n" + table;
+        return "decisiontrees.Header: " + header + "\n" + "decisiontrees.Table: \n" + table;
     }
 
 }

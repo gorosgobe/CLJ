@@ -1,13 +1,12 @@
+package decisiontrees;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DecisionTree<T extends Comparable<T>> {
 
-    //private final Dataset<T> dataset;
-    //private final Attribute<T> resultAttribute;
-    //private final AttributeSelector<T> selector;
-    private Node<T> root;
+    private DecisionNode<T> root;
 
 
     public DecisionTree(Dataset<T> dataset, Attribute<T> resultAttribute, AttributeSelector<T> selector) {
@@ -19,7 +18,7 @@ public class DecisionTree<T extends Comparable<T>> {
         this.root = algorithm.buildTree(dataset, resultAttribute, selector);
     }
 
-    private Node<T> buildTree(Dataset<T> dataset, Attribute<T> resultAttribute,
+    private DecisionNode<T> buildTree(Dataset<T> dataset, Attribute<T> resultAttribute,
                                       AttributeSelector<T> selector) {
         //base case
         if (dataset.isEmpty()) {
@@ -32,23 +31,23 @@ public class DecisionTree<T extends Comparable<T>> {
 
         if (allRowsHaveSameValue(dataset, resultAttribute, index)) {
             //all values of the classification attribute are the same, return Leaf
-            return new Node<>(null, null, dataset.getTable().getRow(0).getValue(index));
+            return new DecisionNode<>(null, null, dataset.getTable().getRow(0).getValue(index));
         }
 
-        //node case
+        //decisionNode case
         Attribute<T> att = selector.nextAttribute(dataset, resultAttribute);
         List<Pair<T, Dataset<T>>> partitions = dataset.partition(att);
-        List<Pair<T, Node<T>>> listOfPairsAndNodes = new ArrayList<>();
-        Node<T> node = new Node<>();
+        List<Pair<T, DecisionNode<T>>> listOfPairsAndNodes = new ArrayList<>();
+        DecisionNode<T> decisionNode = new DecisionNode<>();
 
         for (Pair<T, Dataset<T>> p : partitions) {
             Dataset<T> d = p.getSecond();
             listOfPairsAndNodes.add(new Pair<>(p.getFirst(), buildTree(d, resultAttribute, selector)));
         }
-        node.setList(listOfPairsAndNodes);
-        node.setAttributeName(att.getAttributeName());
+        decisionNode.setList(listOfPairsAndNodes);
+        decisionNode.setAttributeName(att.getAttributeName());
 
-        return node;
+        return decisionNode;
 
     }
 

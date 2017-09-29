@@ -1,3 +1,5 @@
+package decisiontrees;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -105,11 +107,11 @@ public class Tests {
     public void decisionTreeTest() {
         DecisionTree<String> tree = new DecisionTree<>(dataset, result, new NextAttributeSelector<>());
 
-        String s = "Node outlook\n [(sunny, Node temp\n [(hot, Leaf \"bad\"), (mild, Node " +
+        String s = "decisiontrees.DecisionNode outlook\n [(sunny, decisiontrees.DecisionNode temp\n [(hot, Leaf \"bad\"), (mild, decisiontrees.DecisionNode " +
                 "humidity\n [(high, Leaf \"bad\"), (normal, Leaf \"good\")]), (cool, Leaf \"good\")]), " +
-                "(overcast, Leaf \"good\"), (rainy, Node temp\n [(hot, null), (mild, Node " +
-                "humidity\n [(high, Node wind\n [(windy, Leaf \"bad\"), (calm, Leaf \"good\")]), " +
-                "(normal, Leaf \"good\")]), (cool, Node humidity\n [(high, null), (normal, Node " +
+                "(overcast, Leaf \"good\"), (rainy, decisiontrees.DecisionNode temp\n [(hot, null), (mild, decisiontrees.DecisionNode " +
+                "humidity\n [(high, decisiontrees.DecisionNode wind\n [(windy, Leaf \"bad\"), (calm, Leaf \"good\")]), " +
+                "(normal, Leaf \"good\")]), (cool, decisiontrees.DecisionNode humidity\n [(high, null), (normal, decisiontrees.DecisionNode " +
                 "wind\n [(windy, Leaf \"bad\"), (calm, Leaf \"good\")])])])]";
 
         Assert.assertEquals(tree.toString(), s);
@@ -132,9 +134,9 @@ public class Tests {
         Attribute<String> att = gainSelector.nextAttribute(dataset, result);
         Assert.assertEquals(outlook, att);
 
-        String s = "Node outlook\n " +
-                "[(sunny, Node humidity\n " +
-                "[(high, Leaf \"bad\"), (normal, Leaf \"good\")]), (overcast, Leaf \"good\"), (rainy, Node wind\n " +
+        String s = "decisiontrees.DecisionNode outlook\n " +
+                "[(sunny, decisiontrees.DecisionNode humidity\n " +
+                "[(high, Leaf \"bad\"), (normal, Leaf \"good\")]), (overcast, Leaf \"good\"), (rainy, decisiontrees.DecisionNode wind\n " +
                 "[(windy, Leaf \"bad\"), (calm, Leaf \"good\")])]";
         DecisionTree<String> tree = new DecisionTree<>(dataset, result, new InformationGainSelector<>());
         Assert.assertEquals(s, tree.toString());

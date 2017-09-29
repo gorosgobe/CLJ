@@ -1,18 +1,20 @@
+package decisiontrees;
+
 import java.util.List;
 
-public class Node<T extends Comparable<T>> {
+public class DecisionNode<T extends Comparable<T>> {
 
     private String attributeName;
-    private List<Pair<T, Node<T>>> list;
+    private List<Pair<T, DecisionNode<T>>> list;
     private T value;
 
-    public Node(String attributeName, List<Pair<T, Node<T>>> list, T value) {
+    public DecisionNode(String attributeName, List<Pair<T, DecisionNode<T>>> list, T value) {
         this.attributeName = attributeName;
         this.list = list;
         this.value = value;
     }
 
-    public Node() {
+    public DecisionNode() {
     }
 
     public String getAttributeName() {
@@ -23,11 +25,11 @@ public class Node<T extends Comparable<T>> {
         this.attributeName = attributeName;
     }
 
-    public List<Pair<T, Node<T>>> getList() {
+    public List<Pair<T, DecisionNode<T>>> getList() {
         return list;
     }
 
-    public void setList(List<Pair<T, Node<T>>> list) {
+    public void setList(List<Pair<T, DecisionNode<T>>> list) {
         this.list = list;
     }
 
@@ -48,7 +50,7 @@ public class Node<T extends Comparable<T>> {
         if (isLeaf()) {
             return "Leaf \"" + value + "\"";
         } else {
-            return "Node " + attributeName + "\n " + list;
+            return "decisiontrees.DecisionNode " + attributeName + "\n " + list;
         }
 
     }

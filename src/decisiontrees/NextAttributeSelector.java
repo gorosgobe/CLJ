@@ -1,3 +1,5 @@
+package decisiontrees;
+
 import java.util.stream.Collectors;
 
 public class NextAttributeSelector<T extends Comparable<T>> implements AttributeSelector<T> {

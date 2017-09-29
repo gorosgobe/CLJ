@@ -1,3 +1,5 @@
+package decisiontrees;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +32,7 @@ public class InformationGainSelector<T extends Comparable<T>> implements Attribu
     }
 
     public static <T extends Comparable<T>> double gain(Dataset<T> dataset, Attribute<T> classificationAtt,
-                                                         Attribute<T> partitioningAttribute) {
+                                                        Attribute<T> partitioningAttribute) {
         double entropyDatasetClassAtt = entropy(dataset, classificationAtt);
 
         double sum = 0;
