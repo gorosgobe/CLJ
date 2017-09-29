@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Tests {
 
@@ -40,7 +41,30 @@ public class Tests {
 
         System.out.println(kMeans);
 
+    }
 
+    @Test
+    public void KMeansSyntheticPlusPlus() {
+        List<DataPoint> points = new ArrayList<>();
+        Random generator = new Random();
+
+        for (int i = 0; i < 500; i++) {
+            points.add(new DataPoint(generator.nextDouble(), generator.nextDouble(), generator.nextDouble()));
+        }
+
+        KMeans kMeans = new KMeans(250, points, new KMeansPlusPlusInitialiser());
+        
+        list.add(A);
+        list.add(B);
+        list.add(C);
+        list.add(D);
+        list.add(E);
+        list.add(F);
+        list.add(G);
+        list.add(H);
+
+        KMeans kMeans1 = new KMeans(2, list, new KMeansPlusPlusInitialiser());
+        System.out.println(kMeans1);
     }
 
 
