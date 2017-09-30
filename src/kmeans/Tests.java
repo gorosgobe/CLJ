@@ -48,12 +48,14 @@ public class Tests {
         List<DataPoint> points = new ArrayList<>();
         Random generator = new Random();
 
-        for (int i = 0; i < 500; i++) {
-            points.add(new DataPoint(generator.nextDouble(), generator.nextDouble(), generator.nextDouble()));
+        for (int i = 0; i < 2000; i++) {
+            points.add(new DataPoint(generator.nextDouble() * 100, generator.nextDouble() * 100, generator.nextDouble() * 100));
         }
 
-        KMeans kMeans = new KMeans(250, points, new KMeansPlusPlusInitialiser());
-        
+        KMeans kMeans = new KMeans(10, points, new KMeansPlusPlusInitialiser());
+        System.out.println(kMeans);
+        KMeans kMeans2 = new KMeans(300, points, new RandomInitialiser());
+
         list.add(A);
         list.add(B);
         list.add(C);
@@ -63,7 +65,7 @@ public class Tests {
         list.add(G);
         list.add(H);
 
-        KMeans kMeans1 = new KMeans(2, list, new KMeansPlusPlusInitialiser());
+        KMeans kMeans1 = new KMeans(3, list, new KMeansPlusPlusInitialiser());
         System.out.println(kMeans1);
     }
 

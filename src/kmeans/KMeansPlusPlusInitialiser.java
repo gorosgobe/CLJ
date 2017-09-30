@@ -5,9 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class representing a centroid initialiser that uses the k-means++ algorithm.
+ *
+ * @author gorosgobe
+ */
 public class KMeansPlusPlusInitialiser implements Initialiser {
+    /**
+     * Creates the initial centroids using the k-means++ algorithm
+     * @param k the number of clusters
+     * @param points the points
+     * @return the list of centroids
+     */
     @Override
     public List<DataPoint> createInitialCentroids(int k, List<DataPoint> points) {
+        long s1 = System.nanoTime();
 
         List<DataPoint> centroids = new ArrayList<>();
 
@@ -16,47 +28,56 @@ public class KMeansPlusPlusInitialiser implements Initialiser {
         DataPoint point = points.get(randomInt);
         centroids.add(point);
 
-        Random biasedRandomGenerator = new Random();
-
         while (centroids.size() < k) {
 
+            double random = Math.random();
+            double cumulativeProbability = 0.0;
+
+            double cost = points.parallelStream()
+                    .map(p -> getMinimumDistanceSquared(p, centroids))
+                    .reduce(0.0, (a, b) -> a + b);
+
             for (int i = 0; i < points.size(); i++) {
-                double probability = getProbability(points.get(i), centroids);
-                if (probability >= 1) {
+
+                double probability = getProbability(points.get(i), centroids, cost);
+
+                cumulativeProbability += probability;
+
+                if (random <= cumulativeProbability) {
                     centroids.add(points.get(i));
-                } else {
-                    double randomDouble = biasedRandomGenerator.nextDouble();
-                    if (randomDouble >= probability) {
-                        centroids.add(points.get(i));
-                    }
+                    break;
                 }
             }
+
         }
 
         return centroids;
     }
 
+    /**
+     * Computes the minimum distance squared from the point to the centroids
+     * @param point the point
+     * @param centroidsAvailable the centroids
+     * @return the minimum distance squared from the point to the centroids
+     */
     private static double getMinimumDistanceSquared(DataPoint point, List<DataPoint> centroidsAvailable) {
 
         double distance = Double.MAX_VALUE;
 
         for (int i = 0; i < centroidsAvailable.size(); i++) {
-            double newDistance = Math.pow(point.distanceTo(centroidsAvailable.get(i)), 2.0);
+
+            double newDistance = point.distanceTo(centroidsAvailable.get(i));
             if (newDistance < distance) {
                 distance = newDistance;
             }
         }
 
-        return distance;
+        return Math.pow(distance, 2.0);
     }
 
-    private static double getProbability(DataPoint point, List<DataPoint> centroidsAvailable) {
+    private static double getProbability(DataPoint point, List<DataPoint> centroidsAvailable, double cost) {
 
         double distance = getMinimumDistanceSquared(point, centroidsAvailable);
-
-        double cost = centroidsAvailable.parallelStream()
-                .map(i -> getMinimumDistanceSquared(i, centroidsAvailable))
-                .reduce(0.0, (a, b) -> a + b);
 
         return distance / cost;
     }

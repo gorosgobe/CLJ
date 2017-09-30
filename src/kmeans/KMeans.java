@@ -103,6 +103,18 @@ public class KMeans {
         return initialiser.createInitialCentroids(k, points);
     }
 
+    public List<Cluster> getClusters() {
+        return clusters;
+    }
+
+    public int getK() {
+        return k;
+    }
+
+    public List<DataPoint> getPoints() {
+        return points;
+    }
+
     @Override
     public String toString() {
         return clusters.toString();
