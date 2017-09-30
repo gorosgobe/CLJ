@@ -12,6 +12,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Shows a 2d plot of the clusters, only taking into account the first two dimensions. Uses the JfreeChart library.
+ *
+ * @author gorosgobe
+ */
 public class KMeansVisualise extends JFrame {
 
     private KMeans kMeans;

@@ -5,9 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class representing an initialiser that randomly (uniformly) selects centroids from the supplied points.
+ *
+ * @author gorosgobe
+ */
 public class RandomInitialiser implements Initialiser {
 
 
+    /**
+     * Creates the initial centroids
+     * @param k the number of clusters
+     * @param points the points
+     * @return the initial centroids
+     */
     @Override
     public List<DataPoint> createInitialCentroids(int k, List<DataPoint> points) {
         long s1 = System.nanoTime();

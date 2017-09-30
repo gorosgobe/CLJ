@@ -75,6 +75,13 @@ public class KMeansPlusPlusInitialiser implements Initialiser {
         return Math.pow(distance, 2.0);
     }
 
+    /**
+     * Gets the weighted probability (minimum square distance over the total cost) for a given point
+     * @param point the point to get the probability of
+     * @param centroidsAvailable the centroids
+     * @param cost the cost (sum of all squared distances to the centroids of all the points)
+     * @return the weighted probability
+     */
     private static double getProbability(DataPoint point, List<DataPoint> centroidsAvailable, double cost) {
 
         double distance = getMinimumDistanceSquared(point, centroidsAvailable);

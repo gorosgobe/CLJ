@@ -49,12 +49,12 @@ public class Tests {
         Random generator = new Random();
 
         for (int i = 0; i < 2000; i++) {
-            points.add(new DataPoint(generator.nextDouble() * 100, generator.nextDouble() * 100, generator.nextDouble() * 100));
+            points.add(new DataPoint(generator.nextDouble() * 100, generator.nextDouble() * 100,
+                    generator.nextDouble() * 100));
         }
 
         KMeans kMeans = new KMeans(10, points, new KMeansPlusPlusInitialiser());
         System.out.println(kMeans);
-        KMeans kMeans2 = new KMeans(300, points, new RandomInitialiser());
 
         list.add(A);
         list.add(B);
